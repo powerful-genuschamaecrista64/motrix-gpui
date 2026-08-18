@@ -1,0 +1,33 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="55%" stop-color="#4D7CFE"/>
+      <stop offset="100%" stop-color="#16BCE9"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0B2A66" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- full-bleed background: macOS applies its own squircle mask -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#shine)"/>
+
+  <!-- progress ring -->
+  <circle cx="512" cy="512" r="270" fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="54"/>
+  <path d="M 512 242 A 270 270 0 1 1 278 646"
+        fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="54" stroke-linecap="round"/>
+
+  <!-- download arrow -->
+  <g filter="url(#soft)">
+    <path d="M 512 360 L 512 586 M 512 586 L 414 488 M 512 586 L 610 488"
+          fill="none" stroke="#FFFFFF" stroke-width="80" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 392 664 L 632 664"
+          fill="none" stroke="#FFFFFF" stroke-width="80" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+[package]
+name = "motrix"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gpui = { git = "https://github.com/zed-industries/zed" }
+gpui_platform = { git = "https://github.com/zed-industries/zed", features = ["font-kit"] }
+gpui-component = { git = "https://github.com/longbridge/gpui-component" }
+gpui-component-assets = { git = "https://github.com/longbridge/gpui-component" }
+anyhow = "1.0"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+smol = "2"
+ureq = { version = "2", features = ["json"] }
+dirs = "5"
+open = "5"
+base64 = "0.22"
+regex = "1"
+notify-rust = "4"
+objc2 = "0.6.4"
+objc2-foundation = "0.3.2"
+block2 = "0.6.2"
+objc2-user-notifications = { version = "0.3.2", features = ["UNUserNotificationCenter", "UNNotificationContent", "UNNotificationRequest", "UNNotificationSound", "block2"] }
+
+[profile.dev]
+debug = "limited"
+
+[profile.dev.package."*"]
+opt-level = 1
