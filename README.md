@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/icon.png" width="128" alt="Motrix icon" />
+<img src="assets/icon-rounded.png" width="128" alt="Motrix icon" />
 
 # Motrix (GPUI)
 
