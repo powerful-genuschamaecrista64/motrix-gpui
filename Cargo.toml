@@ -23,6 +23,10 @@ objc2-foundation = "0.3.2"
 block2 = "0.6.2"
 objc2-user-notifications = { version = "0.3.2", features = ["UNUserNotificationCenter", "UNNotificationContent", "UNNotificationRequest", "UNNotificationSound", "block2"] }
 
+# Linux windowing backends for gpui (feature-unioned with the base dep).
+[target.'cfg(target_os = "linux")'.dependencies]
+gpui_platform = { git = "https://github.com/zed-industries/zed", features = ["font-kit", "x11", "wayland"] }
+
 [profile.dev]
 debug = "limited"
 

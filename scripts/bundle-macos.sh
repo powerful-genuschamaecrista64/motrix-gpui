@@ -1,21 +1,40 @@
 #!/bin/bash
-# Package the release binary as Motrix.app so macOS treats it as a real app:
-# Dock icon, notification-center registration (permission prompt), etc.
+# Package the binary as Motrix.app.
+#
+# Usage:
+#   ./scripts/bundle-macos.sh [debug|release]
+#
+# Env:
+#   TARGET         optional Rust target triple (e.g. x86_64-apple-darwin)
+#   SIGN_IDENTITY  codesign identity; defaults to "-" (ad-hoc).
+#                  A real Developer ID identity enables hardened runtime +
+#                  secure timestamp, as required for notarization.
+#   SKIP_BUILD=1   bundle an already-built binary
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 PROFILE="${1:-debug}"
-if [ "$PROFILE" = "release" ]; then
-    cargo build --release
+TARGET="${TARGET:-}"
+SIGN_IDENTITY="${SIGN_IDENTITY:--}"
+
+if [ "${SKIP_BUILD:-0}" != "1" ]; then
+    FLAGS=()
+    [ "$PROFILE" = "release" ] && FLAGS+=(--release)
+    [ -n "$TARGET" ] && FLAGS+=(--target "$TARGET")
+    cargo build "${FLAGS[@]}"
+fi
+
+if [ -n "$TARGET" ]; then
+    BIN="target/$TARGET/$PROFILE/motrix"
 else
-    cargo build
+    BIN="target/$PROFILE/motrix"
 fi
 
 APP=target/Motrix.app
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-cp "target/$PROFILE/motrix" "$APP/Contents/MacOS/Motrix"
+cp "$BIN" "$APP/Contents/MacOS/Motrix"
 cp assets/icon.icns "$APP/Contents/Resources/icon.icns"
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
@@ -40,7 +59,11 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 </plist>
 PLIST
 
-# Ad-hoc sign so TCC (notifications etc.) has a stable identity.
-codesign --force --deep --sign - "$APP"
+if [ "$SIGN_IDENTITY" = "-" ]; then
+    codesign --force --deep --sign - "$APP"
+else
+    codesign --force --deep --options runtime --timestamp \
+        --sign "$SIGN_IDENTITY" "$APP"
+fi
 
-echo "Bundled: $APP"
+echo "Bundled: $APP (signed as: $SIGN_IDENTITY)"

@@ -1,9 +1,15 @@
+<div align="center">
+
+<img src="assets/icon.png" width="128" alt="Motrix icon" />
+
 # Motrix (GPUI)
 
-A native rewrite of the [Motrix](https://github.com/agalwood/Motrix) download
-manager in **Rust + [GPUI](https://github.com/zed-industries/zed)**, powered by
-**aria2**. No Electron, no web view — a single native binary with a
-pixel-faithful take on Motrix's macOS design.
+A native rewrite of the [Motrix](https://github.com/agalwood/Motrix) download manager<br/>
+in **Rust + [GPUI](https://github.com/zed-industries/zed)**, powered by **aria2**.
+
+No Electron, no web view — a single native binary with a pixel-faithful take on Motrix's macOS design.
+
+</div>
 
 ## Screenshots
 
