@@ -97,10 +97,20 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Build
         run: cargo build --release
+      - name: Bundle aria2
+        shell: pwsh
+        run: |
+          $release = "aria2-1.37.0"
+          $build = "$release-win-64bit-build1"
+          Invoke-WebRequest `
+            -Uri "https://github.com/aria2/aria2/releases/download/release-1.37.0/$build.zip" `
+            -OutFile aria2.zip
+          Expand-Archive aria2.zip -DestinationPath aria2-dist
+          Copy-Item "aria2-dist/$build/aria2c.exe" target/release/aria2c.exe
       - name: Package
         shell: pwsh
         run: |
-          Compress-Archive -Path target/release/motrix.exe `
+          Compress-Archive -Path target/release/motrix.exe, target/release/aria2c.exe `
             -DestinationPath Motrix-windows-x86_64.zip
       - uses: actions/upload-artifact@v4
         with:

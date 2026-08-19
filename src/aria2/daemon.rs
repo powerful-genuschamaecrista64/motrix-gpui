@@ -12,28 +12,64 @@ pub struct Aria2Daemon {
     pub secret: String,
 }
 
+#[cfg(windows)]
+const ARIA2C_EXE: &str = "aria2c.exe";
+#[cfg(not(windows))]
+const ARIA2C_EXE: &str = "aria2c";
+
+/// Per-platform hint shown when aria2c cannot be found.
+pub fn install_hint() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "winget install aria2"
+    } else if cfg!(target_os = "macos") {
+        "brew install aria2"
+    } else {
+        "sudo apt install aria2"
+    }
+}
+
 fn find_aria2c() -> Option<PathBuf> {
-    let candidates = [
-        "/opt/homebrew/bin/aria2c",
-        "/usr/local/bin/aria2c",
-        "/usr/bin/aria2c",
-    ];
-    for c in candidates {
-        let p = PathBuf::from(c);
-        if p.exists() {
+    // A binary bundled alongside the app executable (Windows/Linux archives
+    // ship aria2c next to motrix; a macOS bundle would use Resources).
+    if let Some(dir) = std::env::current_exe().ok().and_then(|p| p.parent().map(PathBuf::from)) {
+        let p = dir.join(ARIA2C_EXE);
+        if p.is_file() {
             return Some(p);
         }
+        if cfg!(target_os = "macos") {
+            if let Some(parent) = dir.parent() {
+                let p = parent.join("Resources").join(ARIA2C_EXE);
+                if p.is_file() {
+                    return Some(p);
+                }
+            }
+        }
     }
-    // Fall back to PATH lookup
-    std::process::Command::new("which")
-        .arg("aria2c")
-        .output()
-        .ok()
-        .filter(|o| o.status.success())
-        .and_then(|o| {
-            let s = String::from_utf8_lossy(&o.stdout).trim().to_string();
-            if s.is_empty() { None } else { Some(PathBuf::from(s)) }
-        })
+
+    // PATH lookup, without shelling out (GUI apps inherit a minimal PATH,
+    // hence the fixed candidates below).
+    if let Some(paths) = std::env::var_os("PATH") {
+        for dir in std::env::split_paths(&paths) {
+            let p = dir.join(ARIA2C_EXE);
+            if p.is_file() {
+                return Some(p);
+            }
+        }
+    }
+
+    let candidates: &[&str] = if cfg!(windows) {
+        &[
+            r"C:\Program Files\aria2\aria2c.exe",
+            r"C:\ProgramData\chocolatey\bin\aria2c.exe",
+        ]
+    } else {
+        &[
+            "/opt/homebrew/bin/aria2c",
+            "/usr/local/bin/aria2c",
+            "/usr/bin/aria2c",
+        ]
+    };
+    candidates.iter().map(PathBuf::from).find(|p| p.is_file())
 }
 
 fn data_dir() -> PathBuf {
@@ -47,9 +83,8 @@ fn data_dir() -> PathBuf {
 impl Aria2Daemon {
     /// Spawn aria2c. Returns an error if no binary can be found.
     pub fn spawn(config: &AppConfig) -> Result<Self> {
-        let bin = find_aria2c().ok_or_else(|| {
-            anyhow!("aria2c not found. Install it with `brew install aria2`.")
-        })?;
+        let bin = find_aria2c()
+            .ok_or_else(|| anyhow!("aria2c not found. Install it with `{}`.", install_hint()))?;
 
         let port = config.rpc_port;
         let secret = config.rpc_secret.clone();
@@ -91,6 +126,12 @@ impl Aria2Daemon {
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null());
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+            cmd.creation_flags(CREATE_NO_WINDOW);
+        }
         if !secret.is_empty() {
             cmd.arg(format!("--rpc-secret={secret}"));
         }

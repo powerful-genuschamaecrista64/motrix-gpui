@@ -184,6 +184,15 @@ impl AppState {
                                 if state.engine_status == EngineStatus::Ready {
                                     state.engine_status = EngineStatus::Offline;
                                 }
+                                // No daemon was ever started (aria2c missing at
+                                // launch or the spawn failed) — keep trying, so
+                                // installing aria2 works without a restart.
+                                if state.daemon.is_none() {
+                                    if let Ok(daemon) = Aria2Daemon::spawn(&state.config) {
+                                        state.daemon = Some(daemon);
+                                        state.engine_status = EngineStatus::Starting;
+                                    }
+                                }
                             }
                         }
                         cx.notify();
@@ -279,6 +288,12 @@ impl AppState {
             self.events.insert(0, e);
         }
         self.events.truncate(100);
+    }
+
+    /// True when we have no aria2 process of our own and RPC is unreachable —
+    /// i.e. aria2c is most likely not installed.
+    pub fn aria2_missing(&self) -> bool {
+        self.daemon.is_none() && self.engine_status != EngineStatus::Ready
     }
 
     pub fn has_running_tasks(&self) -> bool {

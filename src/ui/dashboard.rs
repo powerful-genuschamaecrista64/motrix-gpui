@@ -168,6 +168,7 @@ impl Render for Dashboard {
         let st = self.state.read(cx);
         let stat = st.stat;
         let engine = st.engine_status;
+        let engine_missing = st.aria2_missing();
         let version = st.engine_version.clone();
         let dl_limit = st.config.max_overall_download_limit;
         let today_bytes = st.activity.today_bytes();
@@ -266,7 +267,15 @@ impl Render for Dashboard {
                                                 div()
                                                     .text_size(px(11.))
                                                     .text_color(muted)
-                                                    .child(if version.is_empty() {
+                                                    .flex_1()
+                                                    .min_w(px(0.))
+                                                    .truncate()
+                                                    .child(if engine_missing {
+                                                        format!(
+                                                            "aria2c not found · {}",
+                                                            crate::aria2::install_hint()
+                                                        )
+                                                    } else if version.is_empty() {
                                                         "aria2".to_string()
                                                     } else {
                                                         format!("aria2 v{version}")
